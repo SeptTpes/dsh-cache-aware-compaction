@@ -1,0 +1,21 @@
+agent-default-model:
+  provider: opencode-go
+  model: deepseek-v4-flash
+llm-deepseek:
+  models:
+    - id: deepseek-v4-flash
+      name: DeepSeek-V4-Flash
+      contextWindow: 1000000
+    - id: deepseek-v4-pro
+      name: DeepSeek-V4-Pro
+      contextWindow: 1000000
+llm-pi-ai:
+  providers:
+    opencode-go:
+      apiKeyEnv: OPENCODE_GO_API_KEY
+      models:
+        - id: deepseek-v4-flash
+          contextWindow: 20000
+          maxTokens: 16384
+agent-presets:
+  default: cache-aware
