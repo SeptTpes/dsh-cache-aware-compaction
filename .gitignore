@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+*.log
+.pnpm-store/
+experiments/.env
+experiments/dsh-home/sessions/
+experiments/dsh-home/storages/
+experiments/dsh-home/profiles/node_modules/
+experiments/dsh-home/profiles/headless/node_modules/
+experiments/dsh-home/profiles/web/node_modules/
+experiments/tasks/.last-session-*
+*.tgz
