@@ -90,7 +90,7 @@ dsh-cache-aware-compaction/
 cd dsh-compaction-cache-aware && node --test
 ```
 
-版本说明：npm registry 上 `@deepseek-ai/dsh-*` 已发布 `0.1.0-rc.6`（2026-08 复核），本插件的 peerDependencies 对应 `^0.1.0-rc.6`，CI 已启用 push/pull_request 自动触发。本包**未发布 npm**，安装走 `dsh plugin --profile <name> add file:...` 本地路径；若你要发布到 npm，可改用你自己的 scope 包名。
+版本说明：npm registry 上 `@deepseek-ai/dsh-*` 已发布 `0.1.0-rc.6`（2026-08 复核），本插件的 peerDependencies 对应 `^0.1.0-rc.6`，CI 已启用 push/pull_request 自动触发。本包**未发布 npm**，安装走 `dsh plugin --profile <name> add file:...` 本地路径；若你要发布到 npm，以 `@septtpes` scope 直接发布即可。
 
 ## 许可证
 

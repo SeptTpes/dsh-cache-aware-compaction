@@ -106,7 +106,7 @@ var ToolResultPruner = class extends Service {
 - 热压调用前缀重放 → hit 价；冷压调用前缀重放 → 全 miss。差价 = `U(1−R)·(P_miss − P_hit)`
 - 转录式冷压：把重放输入 `U(1−R)` 换成转录文本 T（T << U(1−R)），冷压调用成本从 `U(1−R)·P_miss + S·P_out` 降为 `T·P_miss + S·P_out`
 - 压缩后主请求 `(UR+S)·P_miss` 无论如何要付（消息已变，缓存重建）——这是压缩的固有成本，与冷热无关
-- 参考思路：开源项目 opencode（Apache-2.0）压缩实现的 renderTranscript（专用摘要提示 + 扁平化转录）
+- 参考思路：开源项目 opencode（MIT）压缩实现（专用摘要提示 + 扁平化转录）
 
 ---
 

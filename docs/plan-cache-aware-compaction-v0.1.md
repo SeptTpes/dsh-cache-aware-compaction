@@ -323,7 +323,7 @@ headless 会话：请求 A（model X，写缓存）→ 同前缀请求 B（model
 - 预设机制：`dsh-agent-presets/lib/index.js:146,160,793-796,855-856`
 - 预设模板：`config/agent-presets/code/agent.cordis.yml:144-162`
 - 插件先例：`dsh-compaction-tool-result-pruner/lib/index.js`（inject/Config 形态）
-- 转录参考思路：开源项目 opencode（Apache-2.0）的压缩实现——专用摘要提示 + 扁平化转录文本；本插件为独立 JS 实现。
+- 转录参考思路：开源项目 opencode（MIT）的压缩实现——专用摘要提示 + 扁平化转录文本；本插件为独立 JS 实现。
 
 ## 附录 B：用户预设文件模板（M1 生成时基于 code 预设全文替换一行）
 

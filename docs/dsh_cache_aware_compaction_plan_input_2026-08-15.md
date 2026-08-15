@@ -60,9 +60,9 @@
 - token-meter 的 projection 有 `totals`（会话级累计）与 `last`（最近一次）——UI StatsLine 用 totals 显示会话级命中率
 
 ### 2.5 参考：转录式压缩（冷缓存时的备选方案）
-- 思路来源：开源项目 opencode（Apache-2.0）的压缩实现
-- 关键差异：压缩请求 = 专用摘要 system prompt + 折叠区间**转录文本**（renderTranscript，`[user]/[assistant]/[tool result]` 扁平化，compact.go:624）——与主对话前缀不同构 → 不命中缓存（冷热皆 miss）
-- reasonix 参数（可借鉴）：触发 0.85 窗口、尾部 clamp(10%, 32K, 96K)、pinned system+首条 user(≤1500 tok)、摘要上限 16K、foldEconomics 最小 400 tok 才值得压
+- 思路来源：开源项目 opencode（MIT）的压缩实现
+- 关键差异：压缩请求 = 专用摘要 system prompt + 折叠区间**转录文本**（`[user]/[assistant]/[tool result]` 扁平化）——与主对话前缀不同构 → 不命中缓存（冷热皆 miss）
+- 参数取向（来自早期实现观察，未在现公开源码中核实，仅作思路参考）：触发约 0.85 窗口、尾部 clamp、pinned system+首条 user、摘要上限、最小折叠收益阈值
 - 启示：**热时用 dsh 式前缀重放、冷时用转录式压缩** = 双模式压缩
 
 ## 3. 待侦察/未确认（plan 阶段必须解决，按优先级）
@@ -79,7 +79,7 @@
 - **冷热判定规则（v0.1 简化版）**：读最近一次调用的 usage —— `cacheRead ≈ 0 且输入较大` → 冷；`cacheRead > 0` → 热。冷时再按 idle 时长兜底（dsh 无此数据则跳过）。
 - **决策**：
   - 热 → 维持 dsh 默认（前缀重放，命中缓存）
-  - 冷 → 转录式压缩（复用 reasonix renderTranscript 思路：专用摘要提示 + 扁平化转录；注意转录内容要含被压缩区间的完整信息）+ 或直接拒绝压缩并提示用户（更保守，v0.1 可选）
+  - 冷 → 转录式压缩（复用 opencode 转录思路：专用摘要提示 + 扁平化转录；注意转录内容要含被压缩区间的完整信息）+ 或直接拒绝压缩并提示用户（更保守，v0.1 可选）
 - **不做（v0.2+）**：峰谷调度、动态摘要大小、retainRatio 动态调整、模型隔离下的 pro/flash 混用策略
 - **零代码杠杆（先于插件启用）**：`summarizationModel` 配置压缩专用模型；`thresholdRatio`/`retainRatio` 调参
 
@@ -106,4 +106,4 @@
 
 ---
 
-*附：转录式压缩思路参考开源项目 opencode（Apache-2.0）；本插件实现为独立原创 JS。*
+*附：转录式压缩思路参考开源项目 opencode（MIT）；本插件实现为独立原创 JS。*
