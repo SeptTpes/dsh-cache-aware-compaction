@@ -1,0 +1,31 @@
+# dsh-compaction-cache-aware 插件接入示例（精简版）
+#
+# 使用方式：把下方 compaction 组替换进你自己的 agent preset（如 dsh 内置
+# code/standard 预设的副本）的对应位置。其余行与官方 code preset 完全一致——
+# 本插件的接入方式就是把 compaction-basic 行替换为本插件行，仅此一处。
+#
+# 注意：compaction 与 toolResultPruner 必须共享同一个 isolate realm
+# （compaction-basic 通过 ctx.get 读取 pruner；不在同 realm 则不可见）。
+
+- id: compaction
+  name: cordis:group
+  group: true
+  isolate:
+    compaction: true
+    toolResultPruner: true
+  config:
+    - id: compaction-cache-aware
+      name: '@septtpes/dsh-compaction-cache-aware'
+      config:
+        coldMode: transcribe     # 冷缓存行为：transcribe | refuse
+        # cachePolicy: auto      # 实验覆盖：hot | cold
+
+    - id: command-compact
+      name: '@deepseek-ai/dsh-command-compact'
+
+    - id: tool-result-pruner
+      name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+      config:
+        thresholdChars: 8192
+        headChars: 4096
+        tailChars: 1024
